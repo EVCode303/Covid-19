@@ -2,15 +2,16 @@
 
 const covidInfo = "https://api.covid19api.com/summary";
 var cbxCountries;
+var covidData;
 
 window.addEventListener("load", function(){
 	start();
 });
 
 function start(){
-	showPage();
 	getDom();
 	fetchInfo();
+	showPage();
 }
 
 function getDom(){
@@ -21,15 +22,21 @@ function fetchInfo(){
 	getCovidInfo()
 	.then(data => data.json())
 	.then(data => {
-		console.log(data);
+		covidData = data;
+		console.log(covidData);
+		fillCbx(data.Countries);
 	})
 	.catch(e => {
-		console.log(e);
+		alert("Error al conectar con la base de datos");
 	});
 }
 
-function fillCbx(){
-	
+function fillCbx(data){
+	data.forEach((x, i) => {
+		cbxCountries.innerHTML += `
+			<option value=${i}>${x.Country}</option>
+		`;
+	});
 }
 
 function showPage(){
