@@ -61,24 +61,34 @@ body{
 	to{transform: rotate(360deg);}
 }
 
+.hidden{
+	overflow: hidden;
+}
+
 #main-content{
 	position: relative;
 	width: 100%;
 	min-height: 100vh;
 	display: flex;
-	padding: 1em 0;
-	flex-flow: row wrap;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+	padding: 1em 0;
 	font-family: "Trebuchet MS";
 	align-self: center;
 }
 
 #picker-container{
-	position: relative;
+	position: absolute;
+	top: 10%;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
 }
 
 #countryPicker{
+	position: relative;
 	width: 250px;
 	height: 40px;
 	border: none;
@@ -90,6 +100,7 @@ body{
 	-moz-appearance: button;
 	-ms-appearance: button;
 	appearance: button;
+	outline: none;
 }
 
 #picker-container::after{
@@ -118,10 +129,12 @@ body{
 #info-container{
 	width: 70%;
 	height: auto;
+	grid-row: 1;	
+	grid-column: 1/-1;
 	background: rgba(51, 51, 51, 0.8);
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
-	margin: 1em 0;
+	margin: 10em auto;
 	border-radius: 10px;
 	padding: 1em;
 }
@@ -131,7 +144,7 @@ body{
 	display: flex;
 	flex-flow: column wrap;
 	align-items: center;
-	justify-content: space-between;	
+	justify-content: center;	
 	margin-left: 1em;
 }
 

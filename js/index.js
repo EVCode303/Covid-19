@@ -1,10 +1,11 @@
 'use strict';
 
-const covidInfo = "https://api.covid19api.com/summary";
+const countriesInfo = "countries.json";
+const globalInfo = "https://covid2019-api.herokuapp.com/v2/total";
+const countryQueryInfo = "https://covid2019-api.herokuapp.com/v2/country/";
 var cbxCountries;
-var covidData;
-var gTotal, gNew, gDeaths, gRecovered;
-var totalCases, newCases, totalDeaths, totalRecovered;
+var totalCases, deaths, recovered, active;
+var gCases, gDeaths, gRecovered, gActive;
 
 window.addEventListener("load", function(){
 	start();
@@ -12,93 +13,89 @@ window.addEventListener("load", function(){
 
 function start(){
 	getDom();
-	fetchInfo();
-	initEvents();
+	promises();
+}
+
+function promises(){
+	fetch(countriesInfo)
+	.then(data => data.json())
+	.then(data => {
+		fillCbxCountries(data);
+		return fetch(globalInfo);
+	})
+	.then(data => data.json())
+	.then(data => {
+		saveGlobalInfo(data.data);
+		initEvent();
+		showPage();
+	})
+	.catch(e => {
+		alert("Error al conectar con los datos\n"+e);
+	});
+}
+
+function initEvent(){
+	cbxCountries.addEventListener("change", function(){
+		if(this.value == "default"){
+			printGlobalInfo();
+		}else{
+			fetchInfo(this.value);
+		}
+	});
+}
+
+function fetchInfo(value){
+	fetch(countryQueryInfo+value)
+	.then(info => info.json())
+	.then(info => {
+		try{
+			totalCases.innerHTML = info.data.confirmed.toLocaleString();
+            deaths.innerHTML = info.data.deaths.toLocaleString();
+            active.innerHTML = info.data.active.toLocaleString();
+            recovered.innerHTML = info.data.recovered.toLocaleString();
+		}catch(e){
+			alert("Información no encontrada");
+		}
+	})
+	.catch(e => {
+		alert("Error al mostrar la información");
+	});
+}
+
+function fillCbxCountries(data){
+	data.forEach((x) => {
+		cbxCountries.innerHTML += `
+			<option value=${x.code}>${x.name}</option>
+		`;
+	});
 }
 
 function getDom(){
 	cbxCountries = document.querySelector("#countryPicker");
 	totalCases = document.querySelector("#total-cases");
-	newCases = document.querySelector("#new-cases");
-	totalDeaths = document.querySelector("#total-deaths");
-	totalRecovered = document.querySelector("#total-recovered");
+	deaths = document.querySelector("#deaths");
+	recovered = document.querySelector("#recovered");
+	active = document.querySelector("#actives");
 }
 
-function fetchInfo(){
-	getCovidInfo()
-	.then(data => data.json())
-	.then(data => {
-		covidData = data;
-		fillCbx(data.Countries);
-		loadDefault(data.Countries);
-	})
-	.catch(() => {
-		alert("Error al conectar con la base de datos");
-	});
-}
-
-function loadDefault(data){
-	gTotal = covidData.Global.TotalConfirmed;
-    gNew = covidData.Global.NewConfirmed;
-    gDeaths = covidData.Global.TotalDeaths;
-    gRecovered = covidData.Global.TotalRecovered;
-
-    totalCases.innerHTML = formatNumber(gTotal);
-    newCases.innerHTML = formatNumber(gNew);
-    totalDeaths.innerHTML = formatNumber(gDeaths);
-    totalRecovered.innerHTML = formatNumber(gRecovered);
+function saveGlobalInfo(data){
+	gCases = data.confirmed;
+	gDeaths = data.deaths;
+	gRecovered = data.recovered;
+	gActive = data.active;
 	
-	covidData = data;
-	showPage();
+	printGlobalInfo();
 }
 
-function initEvents(){
-	cbxCountries.addEventListener("change", function(){
-		setValues(this.value);
-	});
-}
-
-function formatNumber(num){
-	return new Intl.NumberFormat().format(num);
-}
-
-function fillCbx(data){
-	data.forEach((x, i) => {
-		cbxCountries.innerHTML += `
-			<option value=${i}>${x.Country}</option>
-		`;
-	});
-}
-
-function setValues(value){
-	if(value == "default"){
-		totalCases.innerHTML = formatNumber(gTotal);
-		newCases.innerHTML = formatNumber(gNew);
-		totalDeaths.innerHTML = formatNumber(gDeaths);
-		totalRecovered.innerHTML = formatNumber(gRecovered);
-    }else{
-		setCountryValues(value);
-    }
-}
-
-function setCountryValues(value){
-	covidData.forEach((x, i) => {
-		if(i == value){
-			totalCases.innerHTML = x.TotalConfirmed;
-            newCases.innerHTML = x.NewConfirmed;
-            totalDeaths.innerHTML = x.TotalDeaths;
-            totalRecovered.innerHTML = x.TotalRecovered;
-		}
-	});
+function printGlobalInfo(){
+	totalCases.innerHTML = gCases.toLocaleString();
+	deaths.innerHTML = gDeaths.toLocaleString();
+	recovered.innerHTML = gRecovered.toLocaleString();
+	active.innerHTML = gActive.toLocaleString();
 }
 
 function showPage(){
 	document.querySelector("#carga").className += "fade";
 	document.querySelector("#footer").className = "";
+	document.querySelector("body").className = "";
 }
-
-function getCovidInfo(){
-	return fetch(covidInfo);
-}
-
-

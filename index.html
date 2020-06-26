@@ -4,11 +4,12 @@
 	<meta charset="UTF-8">
 	<title>Información Covid-19</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/x-icon" href="img/coronavirus.png">
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="vendor/Font Awesome/css/all.min.css">
 	<script type="text/javascript" src="js/index.js"></script>
 </head>
-<body>
+<body class="hidden">
 	<div id="carga">
 		<i class="fas fa-spinner"></i>
 	</div>
@@ -23,7 +24,7 @@
             
 		<section id="info-container">
 			<div class="info">
-				<label for="total-cases">Casos totales registrados</label>
+				<label for="total-cases">Casos totales</label>
 				<div class="field">
                   <p id="total-cases">
 					
@@ -31,25 +32,25 @@
 				</div>
 			</div>
 			<div class="info">
-				<label for="new-cases">Nuevos casos</label>
+				<label for="deaths">Muertos</label>
 				<div class="field">
-                  <p id="new-cases">
+                  <p id="deaths">
 					  
                   </p>
-				</div>
+				</div> 
 			</div>
 			<div class="info">
-				<label for="total-deaths">Total de muertos</label>
+				<label for="recovered">Recuperados</label>
 				<div class="field">
-                  <p id="total-deaths">
+                  <p id="recovered">
 
                   </p>
 				</div>
 			</div>
 			<div class="info">
-				<label for="total-recovered">Total de recuperados</label>
+				<label for="actives">Activos</label>
 				<div class="field">
-                  <p id="total-recovered">
+                  <p id="actives">
 					
                   </p>
 				</div>
