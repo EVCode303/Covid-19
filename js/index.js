@@ -16,18 +16,26 @@ function start(){
 	promises();
 }
 
+function getDom(){
+	cbxCountries = document.querySelector("#countryPicker");
+	totalCases = document.querySelector("#total-cases");
+	deaths = document.querySelector("#deaths");
+	recovered = document.querySelector("#recovered");
+	active = document.querySelector("#actives");
+}
+
 function promises(){
 	fetch(countriesInfo)
 	.then(data => data.json())
 	.then(data => {
 		fillCbxCountries(data);
+		showPage();
 		return fetch(globalInfo);
 	})
 	.then(data => data.json())
 	.then(data => {
 		saveGlobalInfo(data.data);
 		initEvent();
-		showPage();
 	})
 	.catch(e => {
 		alert("Error al conectar con los datos\n"+e);
@@ -68,14 +76,6 @@ function fillCbxCountries(data){
 			<option value=${x.code}>${x.name}</option>
 		`;
 	});
-}
-
-function getDom(){
-	cbxCountries = document.querySelector("#countryPicker");
-	totalCases = document.querySelector("#total-cases");
-	deaths = document.querySelector("#deaths");
-	recovered = document.querySelector("#recovered");
-	active = document.querySelector("#actives");
 }
 
 function saveGlobalInfo(data){

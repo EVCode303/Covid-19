@@ -10,7 +10,7 @@
     --facebook-bg: #0676E8;
 	--selector-color: #FA8E8E;
 }
-
+	
 body{
 	min-height: 100vh;
 	background-image: url("../img/background.jpg");
@@ -120,7 +120,6 @@ body{
 	  transform: rotate(360deg);
 	}
   }
-  
 
 .hide{
 	display: none;
