@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Información Covid-19</title>
@@ -9,62 +10,75 @@
 	<link rel="stylesheet" href="vendor/Font Awesome/css/all.min.css">
 	<script type="text/javascript" src="js/index.js"></script>
 </head>
+
 <body class="hidden">
 	<div id="carga">
-		<i class="fas fa-spinner"></i>
+		<div class="lds-roller">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
 	</div>
-	
+
 	<main id="main-content">
-			
-        <div id="picker-container">
-          <select id="countryPicker">
-              <option value="default">Global</option>
-          </select>
-        </div>
-            
+
+		<div id="picker-container">
+			<select id="countryPicker">
+				<option value="default">Global</option>
+			</select>
+		</div>
+
 		<section id="info-container">
 			<div class="info">
 				<label for="total-cases">Casos totales</label>
 				<div class="field">
-                  <p id="total-cases">
-					
-                  </p>
+					<p id="total-cases">
+
+					</p>
 				</div>
 			</div>
 			<div class="info">
 				<label for="deaths">Muertos</label>
 				<div class="field">
-                  <p id="deaths">
-					  
-                  </p>
-				</div> 
+					<p id="deaths">
+
+					</p>
+				</div>
 			</div>
 			<div class="info">
 				<label for="recovered">Recuperados</label>
 				<div class="field">
-                  <p id="recovered">
+					<p id="recovered">
 
-                  </p>
+					</p>
 				</div>
 			</div>
 			<div class="info">
 				<label for="actives">Activos</label>
 				<div class="field">
-                  <p id="actives">
-					
-                  </p>
+					<p id="actives">
+
+					</p>
 				</div>
 			</div>
 		</section>
 	</main>
-	
+
 	<footer id="footer" class="hide">
-      <p>Desarrollado por <span>Eduardo Varela</span></p>
-          <figure id="icons">
-              <a href="https://github.com/EVCode303" title="Ir al repositorio de Github" target="_blank"><i class="fab fa-github"></i></a>
-              <a href="https://www.facebook.com/eduardoantonio.varelaorozco/" title="Ir a página de Facebook" target="_blank"><i class="fab fa-facebook"></i></a>
-          </figure>
-      <p>&copy; Covid 19 Info - 2020</p>
+		<p>Desarrollado por <span>Eduardo Varela</span></p>
+		<figure id="icons">
+			<a href="https://github.com/EVCode303" title="Ir al repositorio de Github" target="_blank"><i
+					class="fab fa-github"></i></a>
+			<a href="https://www.facebook.com/eduardoantonio.varelaorozco/" title="Ir a página de Facebook"
+				target="_blank"><i class="fab fa-facebook"></i></a>
+		</figure>
+		<p>&copy; Covid 19 Info - 2020</p>
 	</footer>
 </body>
+
 </html>
